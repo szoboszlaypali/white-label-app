@@ -1,0 +1,160 @@
+{
+    "rootPage": "homepage",
+    "theme": {
+        "globalCSSHref": "http://localhost:4200/assets/globalStyleBrand1.css"
+    },
+    "apis": [
+        {
+            "name": "thecocktaildb",
+            "baseUrl": "https://www.thecocktaildb.com/api/json/v1/1",
+            "endpoints": {
+                "cocktails": {
+                    "url": "/filter.php?a=Alcoholic",
+                    "method": "GET"
+                },
+                "cocktaildetails": {
+                    "url": "/lookup.php?i={{$.route.params[0]}}",
+                    "method": "GET"
+                }
+            }
+        }
+    ],
+    "data": {
+        "brandName": "Super cool cocktails",
+        "localization": "DE",
+        "ingredients": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+        "ingredientsLabelDE": "Zutaten",
+        "ingredientsLabel": "Ingredients",
+        "instructionsLabelDE": "Anweisungen",
+        "instructionsLabel": "Instructions"
+    },
+    "pages": [
+        {
+            "name": "homepage",
+            "template": {
+                "sections": {
+                    "header": [
+                        "navBar"
+                    ],
+                    "content": [
+                        "dashboard"
+                    ],
+                    "footer": null
+                }
+            }
+        },
+        {
+            "name": "cocktails",
+            "template": {
+                "sections": {
+                    "header": [
+                        "navBar"
+                    ],
+                    "content": [
+                        "cocktail"
+                    ],
+                    "footer": null
+                }
+            }
+        }
+    ],
+    "templates": { 
+        "navBar": {
+            "items": [
+                {
+                    "type": "div",
+                    "classNames": ["navbar"],
+                    "items": [
+                        {
+                            "type": "a",
+                            "href": "/",
+                            "text": "{{$.data.brandName}}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "dashboard": {
+            "items": [
+                {
+                    "type": "grid",
+                    "for": "{{$.api.thecocktaildb.cocktails.drinks[*]}}",
+                    "classNames": ["dashboard"],
+                    "items": [
+                        {
+                            "type": "a",
+                            "href": "cocktails/{{$.api.thecocktaildb.cocktails.drinks[$index].idDrink}}",
+                            "items": [
+                                {
+                                    "type": "img",
+                                    "src": "{{$.api.thecocktaildb.cocktails.drinks[$index].strDrinkThumb}}/preview"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "span",
+                            "text": "{{$.api.thecocktaildb.cocktails.drinks[$index].strDrink}}"
+                        }
+                    ]
+                }
+            ]
+        },
+        "cocktail": {
+            "items": [
+                {
+                    "type": "div",
+                    "classNames": ["cocktaildetails"],
+                    "items": [
+                        {
+                            "type": "div",
+                            "items": [
+                                {
+                                    "type": "h3",
+                                    "text": "{{$.api.thecocktaildb.cocktaildetails.drinks[0].strDrink}}"
+                                },
+                                {
+                                    "type": "img",
+                                    "src": "{{$.api.thecocktaildb.cocktaildetails.drinks[0].strDrinkThumb}}"
+                                }
+                            ]
+                        },
+                        {
+                            "type": "div",
+                            "classNames": ["ingredients"],
+                            "items": [
+                                {
+                                    "type": "h4",
+                                    "text": "{{$.data.ingredientsLabel{{$.data.localization}}}}"
+                                },
+                                {
+                                    "type": "grid",
+                                    "for": "{{$.data.ingredients[*]}}",
+                                    "items": [
+                                        {
+                                            "type": "span",
+                                            "text": "{{$.api.thecocktaildb.cocktaildetails.drinks[0].strMeasure$forValue}}{{$.api.thecocktaildb.cocktaildetails.drinks[0].strIngredient$forValue}}"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "div",
+                    "classNames": ["instructions"],
+                    "items": [
+                        {
+                            "type": "h4",
+                            "text": "{{$.data.instructionsLabel{{$.data.localization}}}}"
+                        },
+                        {
+                            "type": "p",
+                            "text": "{{$.api.thecocktaildb.cocktaildetails.drinks[0].strInstructions{{$.data.localization}}}}"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

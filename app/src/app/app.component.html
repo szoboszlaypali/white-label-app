@@ -1,0 +1,4 @@
+<ng-container *ngIf="config$ | async as config">
+  <link *ngIf="config?.theme?.globalCSSHref" [href]="trustUrl(config.theme.globalCSSHref)" rel="stylesheet">  
+  <router-outlet></router-outlet>
+</ng-container>
