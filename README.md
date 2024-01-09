@@ -105,3 +105,14 @@ Currently the app only supports one css file for defining the UI styles.
 It can be set with the config.json's `theme.globalCSSHref` field. For local development, it can be placed next to the config.json file.
 
 # Known limitions / bugs, ideas for improvement
+
+- Styling the templates should be bound to the templates itselves instead of just loading one css file.
+- Templates should be able to reference other templates.
+- Custom Angular components should be useable as templates
+- Apis should be configurable to use headers (for authentication etc.), and to support other types of requests besides GET
+- Settling down with an interface for config.json, especially for the template items
+    - safeness of JIT rendering, what types should be allowed, what attributes should be supported
+    - Validating config.json once the interface is done
+- Testing the app more thoroughly
+- Should be able to parse all kinds of url params (like query params)
+- Figuring out how to deal with context for jspath resolving (a simple example might be a stepper, where the previous and next index of an array should be available)
