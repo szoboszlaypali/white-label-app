@@ -91,3 +91,17 @@ where www.api.com/v1/getAll returns
 The path to the first index of key.list is: "$.api.apiName.endpointName.key.list[0]".
 
 When the value should be resolved, the app will automatically retrieve the response from the api.
+
+## The grid type
+
+The grid type requires a homogenous array's json path as the input for its `for` field.
+The items defined within the grid's `items` field will be created for each item in the list.
+
+Here you can use two special keyphrases to access the array's index and value: `$index` and `$forValue`
+
+## Styling the application
+
+Currently the app only supports one css file for defining the UI styles.
+It can be set with the config.json's `theme.globalCSSHref` field. For local development, it can be placed next to the config.json file.
+
+# Known limitions / bugs, ideas for improvement
